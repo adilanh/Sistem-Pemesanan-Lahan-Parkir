@@ -234,3 +234,57 @@ cout << " + Biaya : Rp " << trx[m].biaya << endl;
         cout << " +=============================== \n";
 
         trxQueue.push(trx[m]);
+cout << " Tambah Lagi ? (y/n) :";
+        cin >> yn;
+
+        if (yn == 'y' || yn == 'Y') {
+            clearScreen(); 
+            goto trxmasuk;
+        } else if (yn == 'n' || yn == 'N') {
+            outputFile << "Nama Pemilik: " << trx[m].ownerName << ", Type: " << trx[m].type << ", Lama Parkir: " << trx[m].lama << " jam, Biaya: Rp " << trx[m].biaya << ", Tanggal Masuk: " << trx[m].tgl_masuk << ", Spot: " << trx[m].spot << " (" << trx[m].spotLocation << ")\n";
+            cout << "\n\n Data Berhasil Disimpan \n" << endl;
+            clearScreen();
+            goto menu;
+        } else {
+            clearScreen(); 
+            goto trxmasuk;
+        }
+    } else if (pil == 2) {
+        clearScreen();
+        cout << "\n" << endl;
+        cout << "\t\t\t ======= STRUK ======= \t\t\t";
+        if (m >= 0) {
+            cout << endl;
+            for (int a = 0; a <= m; a++) {
+                cout << " ================================ \n";
+                cout << " + Nama Pemilik : " << trx[a].ownerName << endl;
+                cout << " + Type : ";
+  if (trx[a].type == 1) {
+                    cout << "motor";
+                }
+                if (trx[a].type == 2) {
+                    cout << "mobil";
+                }
+                cout << endl;
+                cout << " + Lama Parkir : " << trx[a].lama << " jam";
+                cout << endl;
+                cout << " + Biaya : Rp " << trx[a].biaya << endl;
+                cout << " + Tanggal Masuk : " << trx[a].tgl_masuk;
+                cout << " + Spot : " << trx[a].spot << " (" << trx[a].spotLocation << ")\n";
+                cout << " ================================ \n";
+            }
+        } else {
+            cout << " -- Tidak ada transaksi -- \n";
+        }
+
+        cout << " Kembali ke menu ? (y/n) :";
+        cin >> yn;
+
+        if (yn == 'y' || yn == 'Y') {
+            clearScreen(); 
+            goto menu;
+        } else if (yn == 'n' || yn == 'N') {
+            return 0;
+        } else {
+            return 0;
+        }
