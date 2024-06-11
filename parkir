@@ -1,1 +1,38 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <fstream>
+#include <queue>
+#include <vector>
+#include <limits>
+
+using namespace std;
+
+ofstream outputFile("transaksi.txt", ios::app);
+
+struct User {
+    string username;
+    string password;
+};
+
+class ParkingSpot {
+public:
+    string location;
+    bool isAvailable;
+
+    ParkingSpot(string loc) : location(loc), isAvailable(true) {}
+};
+
+void registerUser() {
+    User user;
+    cout << "\n\n\n\t\t\t 🌟🌟🌟 REGISTER 🌟🌟🌟  \t\t\t\t \n";
+cout << "\n\t\t\t Buat Username : ";
+cin >> user.username;
+cout << "\n\t\t\t Buat Password : ";
+
+    cin >> user.password;
+
+    ofstream userFile("users.txt", ios::app);
+    userFile << user.username << " " << user.password << endl;
+    userFile.close();
 
