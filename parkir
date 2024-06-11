@@ -40,7 +40,6 @@ public:
         }
     }
 };
-using namespace std;
 
 ofstream outputFile("transaksi.txt", ios::app);
 
