@@ -132,11 +132,6 @@ void printReceipt(const ParkingSpot &spot) {
 
 int main() {
 
-void printReceipt(const ParkingSpot &spot) {
-    cout << "\n\n\t\t\t======= 🅢🅣🅡🅤🅚 🅟🅐🅡🅚🅘🅡 =======\n";
-    cout << "\t\t\t Lokasi Parkir: " << spot.location << "\n";
-    cout << "\t\t\t Barcode: " << generateBarcode(12) << "\n";
-    cout << "\t\t\t=======================================\n\n";
 }
 
 int main() {
