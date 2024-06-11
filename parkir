@@ -130,9 +130,6 @@ void printReceipt(const ParkingSpot &spot) {
     cout << "\t\t\t=======================================\n\n";
 }
 
-int main() {
-
-}
 
 int main() {
     vector<ParkingSpot> parkingSpots = {
