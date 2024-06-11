@@ -156,3 +156,86 @@ int main() {
 
     registerUser();
 
+login:
+    if (!loginUser(currentUser)) {
+        cout << "\n\n Username atau Password Salah \n";
+        clearInputBuffer();
+        goto login;
+    }
+
+    cout << "\n\n╔══════════════════════════════════════════╗\n";
+    cout << "║         Anda berhasil login.             ║\n";
+    cout << "╚══════════════════════════════════════════╝\n\n";
+
+
+menu:
+    clearScreen();
+      cout << "\n\n\n┌──────────── Sistem Parkir ────────────┐\n";
+    cout << "│            ───── Menu ─────           │\n";
+    cout << "│ 1. Pemesanan                          │\n";
+    cout << "│ 2. Daftar Struk                       │\n";
+    cout << "│ 3. Cari Lahan Parkir                  │\n";
+    cout << "│ 4. Pengeluaran                        │\n";
+    cout << "│ 5. Keluar                             │\n";
+    cout << "└───────────────────────────────────────┘\n";
+    cout << "Masukan Pilihan anda[ 1 s.d. 5 ] = ";
+
+    cin >> pil;
+
+    if (pil == 1) {
+trxmasuk:
+        clearScreen();
+        m++;
+m++;
+        cout << "\n\n \t\t\t 🌟🌟🌟🌟 PEMESANAN PARKIR 🌟🌟🌟🌟 \t\t\t";
+        cout << "\n Masukkan Nama Pemilik : ";
+        cin >> trx[m].ownerName;
+        cout << "\n Type kendaraan : \n  1. motor \n  2. mobil \n";
+        cout << " Pilih type kendaraan [1 / 2 ] : ";
+        cin >> trx[m].type;
+        cout << " Lama Parkir : ";
+        cin >> trx[m].lama;
+
+        time_t waktu;
+        time(&waktu);
+        trx[m].tgl_masuk = ctime(&waktu);
+
+        cout << "\n\nDaftar Lahan Parkir yang Tersedia di PARKIR FMIPA:\n";
+        for (int i = 0; i < parkingSpots.size(); ++i) {
+            if (parkingSpots[i].isAvailable) {
+                cout << "Spot " << i + 1 << " (" << parkingSpots[i].location << ")\n";
+            }
+        }
+
+        int chosenSpot;
+        cout << "\nPilih spot parkir yang tersedia (masukkan nomor spot): ";
+        cin >> chosenSpot;
+ if (chosenSpot < 1 || chosenSpot > parkingSpots.size() || !parkingSpots[chosenSpot - 1].isAvailable) {
+            cout << "\nSpot tidak valid atau sudah terisi.\n";
+            goto trxmasuk;
+        }
+
+        parkingSpots[chosenSpot - 1].isAvailable = false;
+        trx[m].spot = chosenSpot;
+        trx[m].spotLocation = parkingSpots[chosenSpot - 1].location;
+        printReceipt(parkingSpots[chosenSpot - 1]);
+
+        cout << " +=============================== \n";
+        cout << " + Nama Pemilik : " << trx[m].ownerName << endl;
+        cout << " + Type : ";
+        if (trx[m].type == 1) {
+            cout << "motor";
+        }
+        if (trx[m].type == 2) {
+            cout << "mobil";
+        }
+        cout << endl;
+        cout << " + Lama Parkir : " << trx[m].lama << " jam";
+        cout << endl;
+        trx[m].calculateFee();
+cout << " + Biaya : Rp " << trx[m].biaya << endl;
+        cout << " + Tanggal Masuk : " << trx[m].tgl_masuk;
+        cout << " + Spot : " << trx[m].spot << " (" << trx[m].spotLocation << ")\n";
+        cout << " +=============================== \n";
+
+        trxQueue.push(trx[m]);
