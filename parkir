@@ -103,4 +103,56 @@ return trx[start].biaya;
     int rightSum = divideAndConquerSum(trx, mid + 1, end);
     return leftSum + rightSum;
 }
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    cout << "\033[2J\033[1;1H";
+#endif
+}
+
+void clearInputBuffer() {
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+string generateBarcode(int length) {
+    string barcode;
+    for (int i = 0; i < length; ++i) {
+        barcode += (i % 2 == 0) ? "|" : ":";
+    }
+    return barcode;
+}
+
+void printReceipt(const ParkingSpot &spot) {
+    cout << "\n\n\t\t\t======= 🅢🅣🅡🅤🅚 🅟🅐🅡🅚🅘🅡 =======\n";
+    cout << "\t\t\t Lokasi Parkir: " << spot.location << "\n";
+    cout << "\t\t\t Barcode: " << generateBarcode(12) << "\n";
+    cout << "\t\t\t=======================================\n\n";
+}
+
+int main() {
+
+void printReceipt(const ParkingSpot &spot) {
+    cout << "\n\n\t\t\t======= 🅢🅣🅡🅤🅚 🅟🅐🅡🅚🅘🅡 =======\n";
+    cout << "\t\t\t Lokasi Parkir: " << spot.location << "\n";
+    cout << "\t\t\t Barcode: " << generateBarcode(12) << "\n";
+    cout << "\t\t\t=======================================\n\n";
+}
+
+int main() {
+    vector<ParkingSpot> parkingSpots = {
+        ParkingSpot("A1FM"), ParkingSpot("A2FM"), ParkingSpot("B1FM"), ParkingSpot("B2FM"),
+        ParkingSpot("C1FM"), ParkingSpot("C2FM"), ParkingSpot("D1FM"), ParkingSpot("D2FM"),
+        ParkingSpot("E1FM"), ParkingSpot("E2FM"), ParkingSpot("F1FM"), ParkingSpot("F2FM"),
+        ParkingSpot("G1FM"), ParkingSpot("G2FM"), ParkingSpot("H1FM"), ParkingSpot("H2FM"),
+        ParkingSpot("I1FM"), ParkingSpot("I2FM"), ParkingSpot("J1FM"), ParkingSpot("J2FM")
+    };
+
+    Transaction trx[100];
+    queue<Transaction> trxQueue;
+    User currentUser;
+    char yn;
+    int pil, m = -1, total = 0;
+
+    registerUser();
 
