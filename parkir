@@ -6,6 +6,40 @@
 #include <vector>
 #include <limits>
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+using namespace std;
+
+class Transaction {
+public:
+    string ownerName;
+    int type;
+    int lama;
+    int biaya;
+    string tgl_masuk;
+    int spot;
+    string spotLocation;
+
+    void calculateFee() {
+        if (type == 1) {
+            if (lama >= 1 && lama < 6) {
+                biaya = lama * 2000;
+            } else {
+                biaya = 12000;
+            }
+        } else if (type == 2) {
+            if (lama >= 1 && lama < 6) {
+                biaya = lama * 4000;
+ } else {
+                biaya = 24000;
+            }
+        }
+    }
+};
 using namespace std;
 
 ofstream outputFile("transaksi.txt", ios::app);
@@ -35,4 +69,38 @@ cout << "\n\t\t\t Buat Password : ";
     ofstream userFile("users.txt", ios::app);
     userFile << user.username << " " << user.password << endl;
     userFile.close();
+
+cout << "\n\n User berhasil didaftarkan.\n\n";
+}
+
+bool loginUser(User& currentUser) {
+    cout << "\n\n\n \t\t\t 🌟🌟🌟 LOGIN SISTEM PARKIR 🌟🌟🌟  \t\t\t\t \n";
+    cout << "\n \t\t\t Username : ";
+    cin >> currentUser.username;
+    cout << "\n \t\t\t Password : ";
+    cin >> currentUser.password;
+
+    ifstream userFile("users.txt");
+    string usernameFromFile, passwordFromFile;
+    while (userFile >> usernameFromFile >> passwordFromFile) {
+        if (usernameFromFile == currentUser.username && passwordFromFile == currentUser.password) {
+            return true;
+        }
+    }
+    userFile.close();
+    return false;
+}
+
+int divideAndConquerSum(Transaction trx[], int start, int end) {
+    if (start > end) {
+        return 0;
+    }
+    if (start == end) {
+return trx[start].biaya;
+    }
+    int mid = (start + end) / 2;
+    int leftSum = divideAndConquerSum(trx, start, mid);
+    int rightSum = divideAndConquerSum(trx, mid + 1, end);
+    return leftSum + rightSum;
+}
 
