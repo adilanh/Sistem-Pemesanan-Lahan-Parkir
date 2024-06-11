@@ -288,7 +288,7 @@ cout << " Tambah Lagi ? (y/n) :";
         } else {
             return 0;
         }
-} else if (pil == 4) {
+     } else if (pil == 4) {
         clearScreen();
         cout << "\n\n\t\t\t 🌟🌟🌟🌟 TOTAL PENGELUARAN 🌟🌟🌟🌟 \t\t\t\n\n";
         total = divideAndConquerSum(trx, 0, m);
