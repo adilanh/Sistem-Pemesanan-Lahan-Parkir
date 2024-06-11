@@ -288,3 +288,28 @@ cout << " Tambah Lagi ? (y/n) :";
         } else {
             return 0;
         }
+} else if (pil == 4) {
+        clearScreen();
+        cout << "\n\n\t\t\t 🌟🌟🌟🌟 TOTAL PENGELUARAN 🌟🌟🌟🌟 \t\t\t\n\n";
+        total = divideAndConquerSum(trx, 0, m);
+        cout << " Total Pengeluaran : Rp " << total << endl;
+
+        cout << "\nKembali ke menu? (y/n) : ";
+        cin >> yn;
+
+        if (yn == 'y' || yn == 'Y') {
+            clearScreen(); 
+            goto menu;
+        } else {
+            return 0;
+        }
+    } else if (pil == 5) {
+        return 0;
+    } else {
+        cout << " Pilihan tidak valid. Kembali ke menu.\n";
+        goto menu;
+    }
+
+    outputFile.close();
+    return 0;
+}
