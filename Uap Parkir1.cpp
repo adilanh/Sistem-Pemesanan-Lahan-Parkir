@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 #include <fstream>
-#include <queue>
+#include <queue> // Tambahkan header queue
 #include <stack>
 #include <vector>
 #include <limits>
@@ -140,8 +140,9 @@ int main() {
     };
 
     Transaction trx[100];
-    stack<Transaction> transactionStack; 
-    vector<Transaction> transactionHistory; 
+    stack<Transaction> transactionStack;
+    vector<Transaction> transactionHistory;
+    queue<Transaction> transactionQueue; // Tambahkan queue<Transaction>
     User currentUser;
     char yn;
     int pil, m = -1, total = 0;
@@ -231,22 +232,28 @@ trxmasuk:
         cout << " + Spot : " << trx[m].spot << " (" << trx[m].spotLocation << ")\n";
         cout << " ++++++++++++++++++++++++++++++++ \n";
 
-        transactionStack.push(trx[m]);
-        transactionHistory.push_back(trx[m]);
+        transactionQueue.push(trx[m]); // Tambahkan transaksi ke queue
 
         cout << " Tambah Lagi ? (y/n) :";
         cin >> yn;
 
         if (yn == 'y' || yn == 'Y') {
-            clearScreen(); 
+            clearScreen();
             goto trxmasuk;
         } else if (yn == 'n' || yn == 'N') {
+            // Pindahkan transaksi dari queue ke transactionHistory
+            while (!transactionQueue.empty()) {
+                transactionHistory.push_back(transactionQueue.front());
+                transactionQueue.pop();
+            }
+
+            // Simpan ke dalam file
             outputFile << "Nama Pemilik: " << trx[m].ownerName << ", Type: " << trx[m].type << ", Lama Parkir: " << trx[m].lama << " jam, Biaya: Rp " << trx[m].biaya << ", Tanggal Masuk: " << trx[m].tgl_masuk << ", Spot: " << trx[m].spot << " (" << trx[m].spotLocation << ")\n";
             cout << "\n\n Data Berhasil Disimpan \n" << endl;
-            clearScreen(); 
+            clearScreen();
             goto menu;
         } else {
-            clearScreen(); 
+            clearScreen();
             goto trxmasuk;
         }
     } else if (pil == 2) {
@@ -281,7 +288,7 @@ trxmasuk:
         cin >> yn;
 
         if (yn == 'y' || yn == 'Y') {
-            clearScreen(); 
+            clearScreen();
             goto menu;
         } else if (yn == 'n' || yn == 'N') {
             return 0;
@@ -304,7 +311,7 @@ trxmasuk:
         cin >> yn;
 
         if (yn == 'y' || yn == 'Y') {
-            clearScreen(); 
+            clearScreen();
             goto menu;
         } else {
             return 0;
@@ -319,7 +326,7 @@ trxmasuk:
         cin >> yn;
 
         if (yn == 'y' || yn == 'Y') {
-            clearScreen(); 
+            clearScreen();
             goto menu;
         } else {
             return 0;
