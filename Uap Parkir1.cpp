@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 #include <fstream>
-#include <queue> // Tambahkan header queue
+#include <queue> 
 #include <stack>
 #include <vector>
 #include <limits>
