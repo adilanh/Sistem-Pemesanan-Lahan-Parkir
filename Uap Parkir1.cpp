@@ -3,6 +3,7 @@
 #include <ctime>
 #include <fstream>
 #include <queue>
+#include <stack>
 #include <vector>
 #include <limits>
 
@@ -139,7 +140,8 @@ int main() {
     };
 
     Transaction trx[100];
-    queue<Transaction> trxQueue;
+    stack<Transaction> transactionStack; 
+    vector<Transaction> transactionHistory; 
     User currentUser;
     char yn;
     int pil, m = -1, total = 0;
@@ -158,15 +160,15 @@ login:
 menu:
     clearScreen();
     cout << "+--------------------------+" << endl;
-    cout << "¦      Sistem Parkir       ¦" << endl;
-    cout << "¦--------------------------¦" << endl;
-    cout << "¦          Menu            ¦" << endl;
-    cout << "¦--------------------------¦" << endl;
-    cout << "¦ 1. Pemesanan             ¦" << endl;
-    cout << "¦ 2. Daftar Struk          ¦" << endl;
-    cout << "¦ 3. Cari Lahan Parkir     ¦" << endl;
-    cout << "¦ 4. Pengeluaran           ¦" << endl;
-    cout << "¦ 5. Keluar                ¦" << endl;
+    cout << "Â¦      Sistem Parkir       Â¦" << endl;
+    cout << "Â¦--------------------------Â¦" << endl;
+    cout << "Â¦          Menu            Â¦" << endl;
+    cout << "Â¦--------------------------Â¦" << endl;
+    cout << "Â¦ 1. Pemesanan             Â¦" << endl;
+    cout << "Â¦ 2. Daftar Struk          Â¦" << endl;
+    cout << "Â¦ 3. Cari Lahan Parkir     Â¦" << endl;
+    cout << "Â¦ 4. Pengeluaran           Â¦" << endl;
+    cout << "Â¦ 5. Keluar                Â¦" << endl;
     cout << "+--------------------------+" << endl;
     cout << "Masukan Pilihan anda[1 s.d. 5] = ";
     cin >> pil;
@@ -229,7 +231,8 @@ trxmasuk:
         cout << " + Spot : " << trx[m].spot << " (" << trx[m].spotLocation << ")\n";
         cout << " ++++++++++++++++++++++++++++++++ \n";
 
-        trxQueue.push(trx[m]);
+        transactionStack.push(trx[m]);
+        transactionHistory.push_back(trx[m]);
 
         cout << " Tambah Lagi ? (y/n) :";
         cin >> yn;
@@ -250,24 +253,24 @@ trxmasuk:
         clearScreen();
         cout << "\n" << endl;
         cout << "\t\t\t ------- STRUK ------- \t\t\t";
-        if (m >= 0) {
+        if (!transactionHistory.empty()) {
             cout << endl;
-            for (int a = 0; a <= m; a++) {
+            for (int a = transactionHistory.size() - 1; a >= 0; a--) {
                 cout << " ++++++++++++++++++++++++++++++++ \n";
-                cout << " + Nama Pemilik : " << trx[a].ownerName << endl;
+                cout << " + Nama Pemilik : " << transactionHistory[a].ownerName << endl;
                 cout << " + Type : ";
-                if (trx[a].type == 1) {
+                if (transactionHistory[a].type == 1) {
                     cout << "motor";
                 }
-                if (trx[a].type == 2) {
+                if (transactionHistory[a].type == 2) {
                     cout << "mobil";
                 }
                 cout << endl;
-                cout << " + Lama jam parkir : " << trx[a].lama << "jam";
+                cout << " + Lama jam parkir : " << transactionHistory[a].lama << "jam";
                 cout << endl;
-                cout << " + Biaya : Rp " << trx[a].biaya << endl;
-                cout << " + Tanggal Masuk : " << trx[a].tgl_masuk;
-                cout << " + Spot : " << trx[a].spot << " (" << trx[a].spotLocation << ")\n";
+                cout << " + Biaya : Rp " << transactionHistory[a].biaya << endl;
+                cout << " + Tanggal Masuk : " << transactionHistory[a].tgl_masuk;
+                cout << " + Spot : " << transactionHistory[a].spot << " (" << transactionHistory[a].spotLocation << ")\n";
                 cout << " ++++++++++++++++++++++++++++++++ \n";
             }
         } else {
@@ -331,4 +334,3 @@ trxmasuk:
     outputFile.close();
     return 0;
 }
-
